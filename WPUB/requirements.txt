@@ -1,0 +1,8 @@
+Django==2.1.5
+djongo==1.2.31
+sqlparse==0.2.4
+bs4==0.0.1
+uwsgi
+lxml
+requests==2.21.0
+psycopg2==2.8.2
