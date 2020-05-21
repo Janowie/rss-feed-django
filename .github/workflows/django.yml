@@ -45,6 +45,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: index
+          path: public/index.html
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
