@@ -38,6 +38,7 @@ jobs:
         path: public/index.html
   
   load_deploy:
+    needs: [build_test_render]
     name: Load and deploy rendered index
     runs-on: ubuntu-latest
     steps:
