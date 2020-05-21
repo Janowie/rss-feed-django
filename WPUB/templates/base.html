@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <title>Správy z RSS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+        padding: 30px 0 30px 0;
+    }
+
+    h1 {
+        color: #aaaaaa;
+        font-weight: 400;
+    }
+
+    h2 {
+        color: #aaaaaa;
+        font-weight: 200;
+    }
+
+    #url {
+        width: 100%;
+    }
+
+    #load {
+        width: 100%;
+    }
+
+    .article-small {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    .article-small article {
+        padding: 12px 12px 0px 12px;
+        border-bottom: 1px dotted #c0bfbf;
+        transition: all 300ms ease-out;
+    }
+
+    .article-small article.selected {
+        background-color: #fafafa;
+    }
+
+    .article-small article:hover {
+        background-color: #fafafa;
+        cursor: pointer;
+    }
+
+    .article-small article h3 {
+        font-size: 17px;
+    }
+
+    #main_article {
+        padding: 28px;
+        border-right: 1px dotted #c0bfbf;
+    }
+
+    #main_article img {
+        width: 100%;
+        height: auto;
+    }
+  </style>
+
+</head>
+<body>
+
+<main class="container">
+  <h1 class="pb-3"> Správy z RSS </h1>
+
+    <form class="form-inline container text-center mb-3" action="{% url 'base' %}" method="POST">
+        {% csrf_token %}
+        <label for="url" class="col-lg-2 col-md-6 col-sm-12 col-form-label mb-2">Zadajte url:</label>
+        <div class="col-lg-8 col-md-6 col-sm-12">
+            <input type="text" class="form-control mb-2" id="url" placeholder="url" name="url" value="{% if url %}{{ url | safe }}{% endif %}"/>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12">
+            <input type="submit" class="btn btn-primary mb-2" id="load" value="{% if url %}Aktualizovať{% else %}Načítať{% endif %}"/>
+        </div>
+
+    </form>
+    {% if articles.0 %}
+  <section class="row">
+    <h2 class="col-lg-8"> Získané správy </h2>
+    <div class="col-lg-4">
+        <form>
+            <select class="form-control">
+                <option value="asc">zoradiť od najnovších</option>
+                <option value="desc">zoradiť od najstarších</option>
+            </select>
+        </form>
+    </div>
+    <div class="col-lg-8">
+        <article id="main_article">
+            <h3>{{ articles.0.title }}</h3>
+            <p class="small">{{ articles.0.date }}</p>
+            <img height="400" src="{{ articles.0.img }}" alt="article-img"/>
+            <p class="pt-2">{{ articles.0.desc }}</p>
+            <a target="_blank" href="{{ articles.0.link }}"> Čítať viac... </a>
+        </article>
+    </div>
+    <div class="col-lg-4 article-small">
+      {% for a in articles %}
+            <article class="{% if forloop.counter == 1 %}selected{% endif %}"
+            data-imageUrl="{{ a.img }}"
+            data-articleUrl="{{ a.link }}"
+            >
+                <h3>{{ a.title }}</h3>
+                <p class="small">{{ a.date }}</p>
+                <p>{{ a.desc }}</p>
+            </article>
+      {% endfor %}
+    </div>
+
+  </section>
+    {% endif %}
+
+</main>
+
+<script>
+
+    var show_main_article = function() {
+
+        let main_article = $("#main_article");
+        let article_small = $(this);
+
+        $(".article-small article").removeClass("selected");
+        article_small.addClass("selected");
+
+        // Create new content for main article
+        let content = '<h3>' + article_small.find("h3").html() + '</h3>' +
+                      '<p class="small">' + article_small.find("p.small").html() + '</p>' +
+                      '<img height="400" src="' + article_small.get(0).dataset.imageurl + '" alt="article-img"/>' +
+                      '<p class="pt-2">' + article_small.find("p:not(.small)").html() + '</p>' +
+                      '<a target="_blank" href="' + article_small.get(0).dataset.articleurl + '"> Čítať viac... </a>'
+
+        // Delete old content
+        main_article.html("");
+        // Insert new content
+        main_article.append(content);
+
+    };
+
+    var reorder_small_articles = function (articles) {
+        $(".article-small").html(articles);
+    };
+
+    var sort_articles = function() {
+        let articles_small = [].slice.call(document.querySelectorAll(".article-small article"));
+        articles_small.sort(function(a,b) {
+          // Turn your strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          return new Date(b.querySelector("p.small").innerHTML) - new Date(a.querySelector("p.small").innerHTML);
+        });
+        if ($("select").val() == "desc")
+            articles_small.reverse();
+
+        reorder_small_articles(articles_small);
+    };
+
+    $(document).on("click", ".article-small article", show_main_article);
+    $("select").change(sort_articles);
+    // Change button description when user starts typing
+    $("input[type=text]").keypress(function () {
+        let btn = $("input[type=submit]");
+        if (btn.val() == "Aktualizovať") {
+            console.log("IF BTN VAL", btn.val());
+            btn.val("Načítať");
+        }
+        else {
+            console.log("ELSE BTN VAL", btn.val());
+        }
+    })
+
+</script>
+
+</body>
+</html>
