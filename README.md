@@ -8,7 +8,7 @@ Page: https://janowie.github.io/rss-feed-django/
 - hosting: Github Pages
 - CI-CD: Github Actions
 
-##Jobs in Github workflows:
+## Jobs in Github workflows:
 
 ### build_test_render
 
