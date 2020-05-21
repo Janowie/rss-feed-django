@@ -7,8 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  build_test_render:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -28,3 +27,30 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+    - name: Render website
+      run: |
+        mkdir public
+        python manage.py render_static > public/index.html
+    - name: Upload rendered index
+      uses: actions/upload-artifact@v1
+      with:
+        name: index
+        path: public/index.html
+  
+  load_deploy:
+    name: Load and deploy rendered index
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load rendered index
+        uses: actions/download-artifact@v1
+        with:
+          name: index
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
