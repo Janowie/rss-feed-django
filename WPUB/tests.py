@@ -7,21 +7,8 @@ import os
 class RenderPageTest(TestCase):
 
     def test_healthcheck(self):
+        """
+        A symbolic test ran after build.
+        :return:
+        """
         self.assertEqual("OK", "OK")
-
-    def test_render(self):
-        fp = os.path.join(os.path.dirname(__file__), 'rendered_pages/index.html')
-        try:
-            fake_request = HttpRequest()
-            fake_request.method = 'POST'
-            fake_request.POST['url'] = "https://www.sme.sk/rss-title"
-
-            r = test_render(fake_request)
-
-            print(r)
-
-            # with open(fp, 'w') as static_file:
-            #     static_file.write(r)
-
-        except:
-            self.fail("render failed")
