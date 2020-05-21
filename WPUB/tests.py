@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.http import HttpRequest
-from urllib.request import urlopen
 from .views import test_render
 import os
 
@@ -19,8 +18,10 @@ class RenderPageTest(TestCase):
 
             r = test_render(fake_request)
 
-            with open(fp, 'w') as static_file:
-                static_file.write(r)
+            print(r)
+
+            # with open(fp, 'w') as static_file:
+            #     static_file.write(r)
 
         except:
             self.fail("render failed")
