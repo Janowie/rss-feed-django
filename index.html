@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <title>Správy z RSS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+        padding: 30px 0 30px 0;
+    }
+
+    h1 {
+        color: #aaaaaa;
+        font-weight: 400;
+    }
+
+    h2 {
+        color: #aaaaaa;
+        font-weight: 200;
+    }
+
+    #url {
+        width: 100%;
+    }
+
+    #load {
+        width: 100%;
+    }
+
+    .article-small {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    .article-small article {
+        padding: 12px 12px 0px 12px;
+        border-bottom: 1px dotted #c0bfbf;
+        transition: all 300ms ease-out;
+    }
+
+    .article-small article.selected {
+        background-color: #fafafa;
+    }
+
+    .article-small article:hover {
+        background-color: #fafafa;
+        cursor: pointer;
+    }
+
+    .article-small article h3 {
+        font-size: 17px;
+    }
+
+    #main_article {
+        padding: 28px;
+        border-right: 1px dotted #c0bfbf;
+    }
+
+    #main_article img {
+        width: 100%;
+        height: auto;
+    }
+  </style>
+
+</head>
+<body>
+
+<main class="container">
+  <h1 class="pb-3"> Správy z RSS </h1>
+
+    <form class="form-inline container text-center mb-3" action="/" method="POST">
+        
+        <label for="url" class="col-lg-2 col-md-6 col-sm-12 col-form-label mb-2">Zadajte url:</label>
+        <div class="col-lg-8 col-md-6 col-sm-12">
+            <input type="text" class="form-control mb-2" id="url" placeholder="url" name="url" value="https://www.sme.sk/rss-title"/>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12">
+            <input type="submit" class="btn btn-primary mb-2" id="load" value="Aktualizovať"/>
+        </div>
+
+    </form>
+    
+  <section class="row">
+    <h2 class="col-lg-8"> Získané správy </h2>
+    <div class="col-lg-4">
+        <form>
+            <select class="form-control">
+                <option value="asc">zoradiť od najnovších</option>
+                <option value="desc">zoradiť od najstarších</option>
+            </select>
+        </form>
+    </div>
+    <div class="col-lg-8">
+        <article id="main_article">
+            <h3>Rieky plné plastov, nelegálne skládky. Ako sme ničili slovenskú prírodu (fotogaléria)</h3>
+            <p class="small">Fri, 05 Jun 2020 21:17:33 +0200</p>
+            <img height="400" src="https://m.smedata.sk/api-media/media/image/sme/9/63/6329509/6329509_600x400.jpeg?rev=3" alt="article-img"/>
+            <p class="pt-2">Životné prostredie chránime málo.</p>
+            <a target="_blank" href="https://www.sme.sk/c/22419737/ako-sme-nicili-slovensku-prirodu-fotogaleria.html"> Čítať viac... </a>
+        </article>
+    </div>
+    <div class="col-lg-4 article-small">
+      
+            <article class="selected"
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/9/63/6329509/6329509_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22419737/ako-sme-nicili-slovensku-prirodu-fotogaleria.html"
+            >
+                <h3>Rieky plné plastov, nelegálne skládky. Ako sme ničili slovenskú prírodu (fotogaléria)</h3>
+                <p class="small">Fri, 05 Jun 2020 21:17:33 +0200</p>
+                <p>Životné prostredie chránime málo.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/2/63/6329472/6329472_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22420156/prehlad-sprav-spravy-4-6-2020.html"
+            >
+                <h3>Najdôležitejšie správy dňa: Čaputovej správa a otvorené hranice</h3>
+                <p class="small">Fri, 05 Jun 2020 18:30:00 +0200</p>
+                <p>Pozrite si prehľad dnešného dňa.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/3/61/6185463/6185463_600x400.png?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22420183/traja-zhavraneli-bratia-cita-robert-roth.html"
+            >
+                <h3>Traja zhavranelí bratia (číta Robert Roth)</h3>
+                <p class="small">Fri, 05 Jun 2020 17:42:55 +0200</p>
+                <p>Klasické rozprávky (nielen) pre vaše deti.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/5/63/6329545/6329545_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22420078/frantisek-laurinec-moze-hrat-slovan-v-zahranicnej-lige.html"
+            >
+                <h3>Ak chce Slovan hrať v zahraničnej lige, musí splniť tri podmienky</h3>
+                <p class="small">Fri, 05 Jun 2020 17:15:00 +0200</p>
+                <p>Fortuna liga sa vraj nemusela skrátiť.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/9/36/363599/363599_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22420139/odkaz-matovicovi-nechodte-polskou-cestou.html"
+            >
+                <h3>Odkaz Matovičovi: Nechoďte poľskou cestou</h3>
+                <p class="small">Fri, 05 Jun 2020 16:32:18 +0200</p>
+                <p>Mnohí volili Matoviča ako nástroj na zborenie Ficovho sveta.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/9/63/6328609/6328609_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22420094/premier-matovic-reaguje-na-kritiku-prezidentky-video.html"
+            >
+                <h3>Premiér Matovič reaguje na kritiku prezidentky Čaputovej</h3>
+                <p class="small">Fri, 05 Jun 2020 15:52:34 +0200</p>
+                <p>Reakcia premiéra na prezidentkinu správu o stave republiky.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/1/63/6329211/6329211_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22419955/sme-uprostred-krizy-a-tvarime-sa-ze-sa-nic-nedeje.html"
+            >
+                <h3>Sme uprostred krízy a tvárime sa, že sa nič nedeje</h3>
+                <p class="small">Fri, 05 Jun 2020 15:43:45 +0200</p>
+                <p>Sme posledná generácia, ktorá ju môže zastaviť.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/8/61/6136738/6136738_600x400.jpeg?rev=4"
+            data-articleUrl="https://www.sme.sk/c/22419979/ricin-kauza-cesko-rusko-ambasada-hrib-novotny-kollar.html"
+            >
+                <h3>Agent vraj prišiel zabiť českých politikov. Ricín si vymysleli samotní Rusi</h3>
+                <p class="small">Fri, 05 Jun 2020 14:48:41 +0200</p>
+                <p>Ochranu dostali traja pražskí politici.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/7/41/4187927/4187927_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22419856/caputova-prezidentka-prejav-sprava-komentar.html"
+            >
+                <h3>Čaputová neprišla ako učiteľka rozdávať známky</h3>
+                <p class="small">Fri, 05 Jun 2020 13:59:30 +0200</p>
+                <p>Prezidentka chápe, že demokracia nie je tyrania väčšiny.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/6/63/6328656/6328656_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22419688/hranice-otvorenie-rakusko-cesko-madarsko-podmienky.html"
+            >
+                <h3>Čo znamená otváranie hraníc? (otázky a odpovede)</h3>
+                <p class="small">Fri, 05 Jun 2020 12:31:01 +0200</p>
+                <p>Navrátilci, ktorí prišli na Slovensko skôr ako dnes ráno, majú smolu.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/8/63/6329588/6329588_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22419781/22-rocny-ondrej-buchtele-ma-zhubny-nador-na-srdci.html"
+            >
+                <h3>Má len 20 rokov. Českému reprezentantovi našli na srdci zhubný nádor</h3>
+                <p class="small">Fri, 05 Jun 2020 11:54:37 +0200</p>
+                <p>Mladý hokejista sa nechce ľutovať.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/fici/1/63/6326951/6326951_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22418182/matej-majersky-mladi-sa-o-zivotne-prostredie-zaujimaju-ale-casto-len-povrchne.html"
+            >
+                <h3>Matej Majerský: Mladí sa o životné prostredie zaujímajú, ale často len povrchne</h3>
+                <p class="small">Fri, 05 Jun 2020 11:09:32 +0200</p>
+                <p>Má len 21 a vzdeláva učiteľov aj žiakov.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/0/63/6329170/6329170_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22419053/koronavirus-slovensko-minuta-po-minute-5-jun-2020.html"
+            >
+                <h3>Vlaky do Česka začnú postupne premávať od pondelka (minúta po minúte)</h3>
+                <p class="small">Fri, 05 Jun 2020 06:05:34 +0200</p>
+                <p>Nepribudol ani jeden nakazený.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/1/63/6325301/6325301_600x400.jpeg?rev=4"
+            data-articleUrl="https://www.sme.sk/c/22419361/fica-moze-za-rehabilitacie-v-kastieli-dostihnut-vysoka-pokuta.html"
+            >
+                <h3>Fica môže za rehabilitácie v kaštieli dostihnúť vysoká pokuta</h3>
+                <p class="small">Thu, 04 Jun 2020 19:21:00 +0200</p>
+                <p>Podnet parlamentnému výboru môžu dať občania či poslanci.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/2/38/3837212/3837212_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22418772/listky-ponukaju-bezplatne-alebo-za-zvyhodnene-ceny-kam-sa-da-dostat-na-kulturu.html"
+            >
+                <h3>Lístky ponúkajú bezplatne alebo za zvýhodnené ceny. Kam sa dá dostať na kultúru?</h3>
+                <p class="small">Thu, 04 Jun 2020 13:58:39 +0200</p>
+                <p>Otvárajú sa ďalšie divadlá i koncerty.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/1/63/6328251/6328251_600x400.jpeg?rev=3"
+            data-articleUrl="https://www.sme.sk/c/22420207/prezidenti-kedysi-pri-citani-sprav-pocuvali-nadavky-caputovej-tlieskali-vsetci.html"
+            >
+                <h3>Prezidenti kedysi pri čítaní správ počúvali nadávky, Čaputovej tlieskali všetci</h3>
+                <p class="small">Wed, 03 Jun 2020 00:15:15 +0200</p>
+                <p>Veta o starom chujovi zaznela v deň Kováčovho prejavu.</p>
+            </article>
+      
+            <article class=""
+            data-imageUrl="https://m.smedata.sk/api-media/media/image/sme/5/63/6329205/6329205_600x400.png?rev=3"
+            data-articleUrl="https://cynickaobluda.sme.sk/2020/06/kuffovske-priority.html"
+            >
+                <h3>Kuffovské priority</h3>
+                <p class="small">Thu, 01 Jan 1970 01:00:00 +0100</p>
+                <p>O čo by mohol byť svet krajším miestom, keby sme sa kuffovcov a spol., ako za starých dobrých čias, všetci báli.</p>
+            </article>
+      
+    </div>
+
+  </section>
+    
+
+</main>
+
+<script>
+
+    var show_main_article = function() {
+
+        let main_article = $("#main_article");
+        let article_small = $(this);
+
+        $(".article-small article").removeClass("selected");
+        article_small.addClass("selected");
+
+        // Create new content for main article
+        let content = '<h3>' + article_small.find("h3").html() + '</h3>' +
+                      '<p class="small">' + article_small.find("p.small").html() + '</p>' +
+                      '<img height="400" src="' + article_small.get(0).dataset.imageurl + '" alt="article-img"/>' +
+                      '<p class="pt-2">' + article_small.find("p:not(.small)").html() + '</p>' +
+                      '<a target="_blank" href="' + article_small.get(0).dataset.articleurl + '"> Čítať viac... </a>'
+
+        // Delete old content
+        main_article.html("");
+        // Insert new content
+        main_article.append(content);
+
+    };
+
+    var reorder_small_articles = function (articles) {
+        $(".article-small").html(articles);
+    };
+
+    var sort_articles = function() {
+        let articles_small = [].slice.call(document.querySelectorAll(".article-small article"));
+        articles_small.sort(function(a,b) {
+          // Turn your strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          return new Date(b.querySelector("p.small").innerHTML) - new Date(a.querySelector("p.small").innerHTML);
+        });
+        if ($("select").val() == "desc")
+            articles_small.reverse();
+
+        reorder_small_articles(articles_small);
+    };
+
+    $(document).on("click", ".article-small article", show_main_article);
+    $("select").change(sort_articles);
+    // Change button description when user starts typing
+    $("input[type=text]").keypress(function () {
+        let btn = $("input[type=submit]");
+        if (btn.val() == "Aktualizovať") {
+            console.log("IF BTN VAL", btn.val());
+            btn.val("Načítať");
+        }
+        else {
+            console.log("ELSE BTN VAL", btn.val());
+        }
+    })
+
+</script>
+
+</body>
+</html>
